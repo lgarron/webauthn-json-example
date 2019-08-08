@@ -6,12 +6,12 @@ window.addEventListener("load", function() {
   createButton.addEventListener("click", function() {
     create({
       publicKey: {
-        challenge: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=",
+        challenge: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
         rp: {
           name: "Localhost, Inc."
         },
         user: {
-          id: "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII=",
+          id: "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
           name: "Hi there",
           displayName: "Test User",
         },
@@ -30,10 +30,10 @@ window.addEventListener("load", function() {
     get({
       "publicKey": {
         "timeout": 30000,
-        "challenge": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=",
+        "challenge": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
         "allowCredentials": [{
           "type": "public-key",
-          "id": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD=="
+          "id": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
         }]
       }
     });

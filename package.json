@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@github/webauthn-json": "^0.1.2",
+    "@github/webauthn-json": "^0.2.0",
     "parcel": "^1.12.3"
   },
   "devDependencies": {
