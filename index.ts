@@ -1,6 +1,10 @@
-import {get, create} from "@github/webauthn-json"
+import {get, create, supported} from "@github/webauthn-json"
 
 window.addEventListener("load", function() {
+  const supportedInfo = document.createElement("div");
+  supportedInfo.textContent = `Supported: ${supported()}`
+  document.body.appendChild(supportedInfo);
+
   const createButton = document.createElement("button");
   createButton.textContent = "create"
   createButton.addEventListener("click", function() {
