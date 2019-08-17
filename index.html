@@ -1,1 +1,35 @@
-<script src="index.ts"></script>
+<!doctype html>
+<html>
+<head>
+  <script src="./index.ts"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 1em;
+      display: grid;
+      height: 100%;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 2em 5fr;
+      grid-gap: 1em;
+    }
+    #registrations {
+      height: auto;
+      flex: 1;
+      font-family: monospace;
+      grid-column: 1 / 4;
+    }
+  </style>
+</head>
+<body>
+  <button id="register">Register<span class="status"></span></button>
+  <button id="authenticate">Authenticate<span class="status"></span></button>
+  <button id="clear">Clear<span class="status"></span></button>
+  <textarea id="registrations" spellcheck="false"></textarea>
+</body>
+</html>

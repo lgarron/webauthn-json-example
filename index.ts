@@ -1,46 +1,42 @@
-import {get, create, supported} from "@github/webauthn-json"
+// A minimal example to test `webauthn-json`.
+// Note: do not hardcode values in production.
+
+import {create, get} from "@github/webauthn-json"
+import { addRegistration, getRegistrations, setRegistrations, withStatus } from "./state";
+
+async function register(): Promise<void> {
+  addRegistration(await create({
+    publicKey: {
+      challenge: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+      rp: {name: "Localhost, Inc."},
+      user: {id: "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII", name: "test_user", displayName: "Test User"},
+      pubKeyCredParams: [{type: "public-key", alg: -7}],
+      excludeCredentials: getRegistrations().map((reg) => ({
+        id: reg.rawId,
+        type: reg.type
+      }))
+    }
+  }));
+}
+
+async function authenticate(): Promise<void> {
+  await get({
+    publicKey: {
+      challenge: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+      allowCredentials: getRegistrations().map((reg) => ({
+        id: reg.rawId,
+        type: reg.type
+      }))
+    }
+  });
+}
+
+async function clear(): Promise<void> {
+  setRegistrations([]);
+}
 
 window.addEventListener("load", function() {
-  const supportedInfo = document.createElement("div");
-  supportedInfo.textContent = `Supported: ${supported()}`
-  document.body.appendChild(supportedInfo);
-
-  const createButton = document.createElement("button");
-  createButton.textContent = "create"
-  createButton.addEventListener("click", function() {
-    create({
-      publicKey: {
-        challenge: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
-        rp: {
-          name: "Localhost, Inc."
-        },
-        user: {
-          id: "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
-          name: "Hi there",
-          displayName: "Test User",
-        },
-        pubKeyCredParams: [{
-          type: "public-key",
-          alg: -7
-        }]
-      }
-    });
-  })
-  document.body.appendChild(createButton);
-
-  const getButton = document.createElement("button");
-  getButton.textContent = "get"
-  getButton.addEventListener("click", function() {
-    get({
-      "publicKey": {
-        "timeout": 30000,
-        "challenge": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
-        "allowCredentials": [{
-          "type": "public-key",
-          "id": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
-        }]
-      }
-    });
-  })
-  document.body.appendChild(getButton);
+  document.querySelector("#register").addEventListener("click", withStatus("#register .status", register));
+  document.querySelector("#authenticate").addEventListener("click", withStatus("#authenticate .status", authenticate));
+  document.querySelector("#clear").addEventListener("click", withStatus("#clear .status", clear));
 })
