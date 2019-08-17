@@ -1,7 +1,7 @@
 .PHONY: build
 build:
-	parcel build index.html	
+	parcel build src/index.html
 
 .PHONY: dev
 dev:
-	parcel serve index.html
+	parcel serve src/index.html
